@@ -6,6 +6,7 @@ export type ListItem = {
   title: string;
   description: string;
   isVisible: boolean;
+  expanded: boolean
 };
 
 export type DeletedListItem = Omit<ListItem, "description">;
@@ -16,17 +17,20 @@ export const useGetListData = () => {
     queryFn: async () => {
       await sleep(1000);
 
-      if (getRandom() > 85) {
-        console.error("An unexpected error occurred!");
-        throw new Error("👀");
-      }
+      // if (getRandom() > 85) {
+      //   console.error("An unexpected error occurred!");
+      //   throw new Error("👀");
+      // }
 
       const mockData = mockJson as Omit<ListItem, "isVisible">[];
 
-      return shuffle(mockData).map((item) => {
-        return { ...item, isVisible: getRandom() > 50 ? true : false };
+      const shuffledCards = shuffle(mockData).map((item) => {
+        return { ...item, isVisible: getRandom() > 50 };
       });
+
+      return shuffledCards.filter((card) => card.isVisible);
     },
+    staleTime: Infinity, 
   });
 
   return query;
