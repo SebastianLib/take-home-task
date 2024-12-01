@@ -17,11 +17,6 @@ export const useGetListData = () => {
     queryFn: async () => {
       await sleep(1000);
 
-      // if (getRandom() > 85) {
-      //   console.error("An unexpected error occurred!");
-      //   throw new Error("👀");
-      // }
-
       const mockData = mockJson as Omit<ListItem, "isVisible">[];
 
       const shuffledCards = shuffle(mockData).map((item) => {

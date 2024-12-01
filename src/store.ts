@@ -8,7 +8,7 @@ type State = {
 };
 
 type Actions = {
-  setCards: (cards: ListItem[]) => void;
+  setCards: (cards: Omit<ListItem, "expanded">[]) => void;
   deleteCard: (id: number) => void;
   toggleExpanded: (id: number) => void;
   loadPersistedState: () => void;
@@ -19,7 +19,9 @@ export const useStore = create<State & Actions>((set, get) => ({
   deletedCards: [],
   isInitialized: false,
 
-  setCards: (cards: ListItem[]) => {
+  setCards: (cards: Omit<ListItem, "expanded">[]) => {
+    console.log(cards);
+    
     const updatedVisibleCards = cards.map((card) => ({
       ...card,
       expanded: false, 
